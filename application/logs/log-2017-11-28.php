@@ -1,0 +1,53 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2017-11-28 08:42:22 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:23 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:26 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:26 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:27 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:27 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:28 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:28 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:28 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:28 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:42:28 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:43:36 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:43:36 --> Severity: Notice --> Undefined index:  C:\xampp\htdocs\currv2\application\controllers\gen_info.php 391
+ERROR - 2017-11-28 08:43:40 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:43:40 --> Severity: Notice --> Undefined index: undefined C:\xampp\htdocs\currv2\application\controllers\gen_info.php 391
+ERROR - 2017-11-28 08:43:41 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:19 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:20 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:20 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:20 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:20 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:27 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:31 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:32 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:34 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:35 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:35 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:35 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:40 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:43 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:44 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:45 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:53:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:15 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:16 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:16 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:16 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:16 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:16 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:16 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-11-28 08:55:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.

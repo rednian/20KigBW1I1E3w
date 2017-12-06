@@ -1,0 +1,136 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2017-10-05 08:35:35 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:35:42 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:41 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:41 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:44 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:44 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:44 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:44 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:44 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:44 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:44 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:49 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:58 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 08:36:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:59 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:59 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:59 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:59 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\currv2\application\core\MY_Model.php 69
+ERROR - 2017-10-05 08:36:59 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:59 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:36:59 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:00 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:04 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 08:37:04 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 09:03:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 09:03:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 09:03:57 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 09:03:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 09:03:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 09:03:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 09:04:08 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 09:04:10 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 09:04:16 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:34 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:38 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:41 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:41 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:41 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 14:08:41 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 14:08:42 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:43 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:45 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:45 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:45 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 14:08:45 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 14:08:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:46 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:49 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 14:08:51 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\currv2\application\core\MY_Model.php 69
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:53 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:08:58 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:09:06 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:09:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:09:18 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:09:18 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:09:18 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:09:22 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:09:24 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:47 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:50 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:50 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 14:12:50 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:50 --> 404 Page Not Found: Assets/plugins
+ERROR - 2017-10-05 14:12:50 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:50 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:50 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:50 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\currv2\application\core\MY_Model.php 69
+ERROR - 2017-10-05 14:12:50 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:51 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:12:52 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:13:06 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:13:14 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:13:17 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:13:18 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:13:18 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:13:18 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:13:20 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:13:21 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.
+ERROR - 2017-10-05 14:18:16 --> $config['composer_autoload'] is set to TRUE but C:\xampp\htdocs\currv2\application\vendor/autoload.php was not found.

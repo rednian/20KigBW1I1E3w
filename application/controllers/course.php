@@ -104,16 +104,40 @@ class Course extends MY_Controller {
 
       $this->db->trans_begin();
 
-      $ss = new Sched_subj();
-      $ss->year_lvl = $schedule['year'];
-      $ss->sy = $schedule['sy'];
-      $ss->subj_id = $event['sub_id'];
-      $ss->sem = $schedule['semester'];
-      $ss->avs_status = 'active';
-      $ss->bs_id = $event['bs_id'];
-      $ss->save();
+      //find the subject id  and blck section id on sched_subj table
+      $sched_subj = new Sched_subj();
+      $result_search = $sched_subj->search(array('subj_id'=>$event['sub_id'],'bs_id'=>$event['bs_id']));
 
-      $ss_id = $ss->db->insert_id();
+      //if subject id and block section id not exist save to sched_subj
+      //otherwise disregard.
+
+      $ss_id = '';
+
+      if(empty($result_search)){
+
+        $ss = new Sched_subj();
+        $ss->year_lvl = $schedule['year'];
+        $ss->sy = $schedule['sy'];
+        $ss->subj_id = $event['sub_id'];
+        $ss->sem = $schedule['semester'];
+        $ss->avs_status = 'active';
+        $ss->bs_id = $event['bs_id'];
+        $ss->save();
+
+        $ss_id = $ss->db->insert_id();
+
+      }
+      else{
+
+        foreach($result_search as $result){
+          $ss_id = $result->ss_id;
+          break;
+        }
+      }
+
+
+
+
 
 
       foreach ($event['selected_days'] as $day_id) {
@@ -156,10 +180,10 @@ class Course extends MY_Controller {
 
       if ($this->db->trans_status() === FALSE) {
         // $this->db->trans_rollback();
-        $ss->db->trans_rollback();
+        $this->db->trans_rollback();
       } else {
         // $this->db->trans_commit();
-        $ss->db->trans_commit();
+        $this->db->trans_commit();
         echo true;
       }
 

@@ -186,24 +186,20 @@
     var schedule_data = [];
     var room_type_value = '';
 
-
     $(document).ready(function () {
 
         reload();
-       
 
         $('#modalSubjectScheduling').on('shown.bs.modal', function () {
-
             $('#select-room').html('<option disabled selected>Select Room</option>');
-
             load_start_time();
             lecture_room();     
             laboratory_room();
             initialize_calendar();
             load_room();
             set_room();
-        
         });
+
     });
 
     function set_room() {
@@ -436,7 +432,6 @@
             pagingType: 'simple',
             language: {
                 'loadingRecords': 'retrieving subjects...'
-
             },
             columns: [
                 {
@@ -480,7 +475,6 @@
     }
 
     function load_start_time() {
-
         $('#select-time-start').html('<option selected disabled> Select Time </option>');
         $.ajax({
             url: '<?php echo base_url('course/get_schedule_time'); ?>',

@@ -5,52 +5,47 @@
 
 <div id="content" class="content">
 
-    <!-- <button id="btnAddMoreSubject" class="btn btn-success"><i class="fa fa-plus fa-2x"></i><br>Add subject</button> -->
-    <!-- <div class="form-group m-l-0">
-      <button onclick="loadScheduleList();$('#modalScheduleList').modal('show')" class="btn btn-info ">Schedule List</button>
-    </div> -->
-    <div id="setScheduleContent" class="row p-t-10 p-b-10 m-b-10">
-        <!--        <div class="col-md-3 border-r">-->
-        <!--            <small>Schedule is set for:</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsProgram">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-2 border-r">-->
-        <!--            <small>Major</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsMajor">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-1 border-r">-->
-        <!--            <small>Year Level</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsYear">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-1 border-r">-->
-        <!--            <small>Semester</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsSemister">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-1 border-r">-->
-        <!--            <small>School year</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsSY">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-1 border-r">-->
-        <!--            <small>div Code</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsdiv">...</span>-->
-        <!--        </div>-->
-
-        <div class="col-md-2 col-md-offset-10" id="buttonContainer">
-            <button onclick="loadScheduleList();$('#modalScheduleList').modal('show')" class="btn btn-info btn-sm">
-                Schedule List
-            </button>
-            <button onclick="$('#setSchedModal').modal('show');" class="btn btn-sm btn-success">Set Schedule</button>
-            <!--            <button onclick="saveSubjectSched()" class="btn btn-sm btn-info pull-right m-l-5">Save</button>-->
+    <section class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-inline" id="frm-schedule" method="get" action="#">
+                        <div class="form-group">
+                            <label for="school_year">School Year</label>
+                            <select name="school_year" id="sy" class="form-control input-sm">
+                                <option disabled>Choose School Year</option>
+                                <?php if (!empty($section_school_year)): ?>
+                                    <?php foreach ($section_school_year as $section): ?>
+                                        <option value="<?php echo $section->sy; ?>"><?php echo $section->sy; ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                        <?php
+                        $month = date('m');
+                        $first_semester = [6, 7, 8, 9,10];
+                        $second_semester = [11, 12, 1, 2, 3, 4];
+                        ?>
+                        <label class="radio-inline"><input id="first-semester" type="radio" name="semester" <?php echo   $active = in_array($month, $first_semester) ? 'checked':''; ?> value="first semester"> First Semester</label>
+                        <label class="radio-inline"><input id="second-semester" type="radio" name="semester" <?php echo   $active = in_array($month, $second_semester) ? 'checked':''; ?> value="second semester"> Second Semester</label>
+                        <button type="submit" class="btn btn-success btn-sm" >display schedule</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button onclick="loadScheduleList();$('#modalScheduleList').modal('show')" class="btn btn-info btn-sm pull-right">
+                        Schedule List
+                    </button>
+                    <button onclick="$('#setSchedModal').modal('show');" class="btn btn-sm btn-success pull-right">Set Schedule</button>
+                </div>
+            </div>
 
-    
+        </div>
+    </section>
+
     <div class="row">
         <!-- LEFT -->
         <div class="col-lg-6">
@@ -105,8 +100,17 @@
     var _curriculum_revision = $('#currsy').val();
     var _section_code = $('#sectioncode').val();
 
+    var sy = $('#sy').val();
+    var semester = $('#first-semester').is(':checked') ? 'first semester' : 'second semester';
+
+
     $(document).ready(function () {
- 
+
+        // $('form#frm-schedule').submit(function (e) {
+        //     e.preventDefault();
+        //
+        // });
+
         load_lecture_room();
         load_lab_room();
 
@@ -133,7 +137,7 @@
         $("#<?php echo $value->room_code ?>").fullCalendar({
             eventSources: [{
                 url: '<?php echo base_url('course/get_plotted_room')?>',
-                data: {room_code: '<?php echo $value->room_code ?>'}
+                data: {room_code: '<?php echo $value->room_code ?>', sy: sy, semester: semester}
             }],
             defaultView: 'agendaWeek',
             header: {
@@ -193,7 +197,7 @@
             eventSources: [
                 {
                     url: '<?php echo base_url('course/get_plotted_room')?>',
-                    data: {room_code: '<?php echo $value->room_code ?>'}
+                    data: {room_code: '<?php echo $value->room_code ?>', sy: sy, semester: semester}
                 }
             ],
             defaultView: 'agendaWeek',
@@ -213,12 +217,12 @@
             droppable: true,
             firstDay: 1,
             eventOverlap: function (stillEvent, movingEvent) {
-                
+
                 return stillEvent.allDay && movingEvent.allDay;
             },
             eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
 
-             
+
                 // eventsToSave[event.key].composition = event.start.format("dddd");
                 // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
                 // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
@@ -230,7 +234,7 @@
                 //     composition: event.start.format("dddd"),
                 //     rl_id: event.rl_id
                 // };
-               
+
                 // updatePlottedSched(sched);
 
                 // console.log(eventsToSave);
@@ -249,6 +253,10 @@
 
 <style type="text/css">
 
+    div.content {
+        padding-top: 0;
+    }
+
     div.p-t-5.p-b-5 {
         background: #154360;
         color: #FFF;
@@ -256,7 +264,7 @@
     }
 
     div#setScheduleContent {
-        background: #154360;
+        /*background: #154360;*/
         border-radius: 5px;
         color: #FFF !important;
     }
@@ -317,5 +325,9 @@
         display: none;
         z-index: 1000;
         width: 150px;
+    }
+
+    .btn {
+        margin-left: .3%;
     }
 </style>

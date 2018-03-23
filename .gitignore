@@ -1,1 +1,7 @@
 /application/logs/
+.idea/
+.phpintel/
+.idea/dataSources.local.xml
+.idea/dataSources.xml
+.idea/dataSources/
+/vendor/

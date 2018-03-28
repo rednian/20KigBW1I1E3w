@@ -71,9 +71,8 @@
                 </div>
             </div>
             <div class="row m-t-5">
-                <div class="col-md-12 p-l-5 p-r-0">
+                <div class="col-md-12 p-l-5 p-r-0" id="lab-room-container">
 
-                    <?php $this->load->view('course/include/lab-room'); ?>
 
                 </div>
             </div>
@@ -99,20 +98,16 @@
     var _curriculum_year_semester = $('#currsemister').val();
     var _curriculum_revision = $('#currsy').val();
     var _section_code = $('#sectioncode').val();
+    var lecture_room_id = {};
+    var lab_room_id = {};
 
     var sy = $('#sy').val();
     var semester = $('#first-semester').is(':checked') ? 'first semester' : 'second semester';
 
 
     $(document).ready(function () {
-
-        // $('form#frm-schedule').submit(function (e) {
-        //     e.preventDefault();
-        //
-        // });
-
-        load_lecture_room();
-        load_lab_room();
+        displaySchedule();
+        loadRooms();
 
         //after closing the room modal, table should be cleared.
         $('#modalSubjectScheduling').on('hidden.bs.modal', function (e) {
@@ -121,133 +116,188 @@
 
     });
 
-    function load_lab_room() {
-        <?php
-        $room = '';
-        $start = '';
-        $end = '';
-        if (!empty($labRooms)){
+    function loadLabRoom() {
 
-        foreach ($labRooms as $key => $value) {
-        $room = $value->room_code;
-        $start = date('H:i', strtotime($time->time_start));
-        $end = date('H:i', strtotime($time->time_end));
-        ?>
+        $.ajax({
+            url:'<?php echo base_url('course/loadRooms'); ?>',
+            data: {type: 'laboratory'},
+            dataType:'json',
+            success:function (data) {
 
-        $("#<?php echo $value->room_code ?>").fullCalendar({
-            eventSources: [{
-                url: '<?php echo base_url('course/get_plotted_room')?>',
-                data: {room_code: '<?php echo $value->room_code ?>', sy: sy, semester: semester}
-            }],
-            defaultView: 'agendaWeek',
-            header: {
-                left: '',
-                right: ''
-            },
-            minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
-            maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
-            columnFormat: {
-                week: 'ddd'
-            },
-            slotDuration: "0:<?php echo $time->interval; ?>",
-            snapDuration: "0:<?php echo $time->interval; ?>",
-            allDaySlot: false,
-            editable: true,
-            droppable: true,
-            firstDay: 1,
-            eventOverlap: function (stillEvent, movingEvent) {
-                return stillEvent.allDay && movingEvent.allDay;
-            },
-            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+                $.each(data, function (index, room) {
+                    var html = ' <div class="panel panel-info">';
+                    html += '<div class="panel-heading clearfix">';
+                    html += '<span class="panel-title">'+room.code+'</span>';
+                    html += '<small class="pull-right">Available Time Percentage: 27%</small>';
+                    html += '</div>';
+                    html += '<div class="panel-body p-t-10 p-l-10 p-r-10 p-b-10">';
+                    html += '<div class="roomCalendar" id="'+room.code+'"></div>';
+                    html += '</div>';
+                    html += '<div class="panel-footer clearfix">';
+                    html += '<small class="pull-right">Total Unit Plotted: 27</small>';
+                    html += '</div>';
+                    html += '</div>';
+                    $('div#lab-room-container').append(html);
+                });
 
-                // console.log(event);
 
-                // eventsToSave[event.key].composition = event.start.format("dddd");
-                // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
-                // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
 
-                // sched = {
-                //     key: event.key,
-                //     time_start: event.start.format("HH:mm"),
-                //     time_end: event.end.format("HH:mm"),
-                //     composition: event.start.format("dddd"),
-                //     rl_id: event.rl_id
-                // };
-                updatePlottedSched(sched);
-
-                // console.log('update schedule '+shed);
-            },
-            eventRightclick: function (event, jsEvent, view) {
-                ShowMenu('contextMenu', jsEvent);
-                contextMenuEventSelected = event;
-                console.log(event);
-                return false;
             }
         });
-        <?php
-        }
-        } ?>
+
+
+    }
+
+
+    function displaySchedule() {
+        $('form#frm-schedule').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url:'<?php echo base_url('course/get_plotted_room'); ?>',
+                data: {room_code: room_code, sy: sy, semester: semester},
+                success:function (data) {
+                    loadRooms();
+                }
+            });
+
+        });
+    }
+    
+    function loadRooms() {
+        loadLabRoom();
+        load_lecture_room();
+        load_lab_room();
     }
 
     function load_lecture_room() {
-        <?php
-        if (!empty($lectureRooms)){
-        foreach ($lectureRooms as $key => $value) { ?>
-        $("#<?php echo $value->room_code ?>").fullCalendar({
-            eventSources: [
-                {
-                    url: '<?php echo base_url('course/get_plotted_room')?>',
-                    data: {room_code: '<?php echo $value->room_code ?>', sy: sy, semester: semester}
-                }
-            ],
-            defaultView: 'agendaWeek',
-            header: {
-                left: '',
-                right: ''
-            },
-            minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
-            maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
-            columnFormat: {
-                week: 'ddd'
-            },
-            slotDuration: "0:<?php echo $time->interval; ?>",
-            snapDuration: "0:<?php echo $time->interval; ?>",
-            allDaySlot: false,
-            editable: true,
-            droppable: true,
-            firstDay: 1,
-            eventOverlap: function (stillEvent, movingEvent) {
+        roomId('lecture');
 
-                return stillEvent.allDay && movingEvent.allDay;
-            },
-            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+        $.each(lecture_room_id, function (index, room) {
+
+           var room_code = room.room_code;
+
+          $('#'+room_code).fullCalendar({
+              events:{
+                      url: '<?php echo base_url('course/get_plotted_room')?>',
+                      data: {room_code: room_code, sy: sy, semester: semester}
+                  },
+              defaultView: 'agendaWeek',
+              header: {left: '', right: ''},
+              minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
+              maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
+              columnFormat: {week: 'ddd'},
+              slotDuration: "0:<?php echo $time->ianterval; ?>",
+              snapDuration: "0:<?php echo $time->interval; ?>",
+              allDaySlot: false,
+              editable: true,
+              droppable: true,
+              firstDay: 1,
+              eventOverlap: function (stillEvent, movingEvent) {
+                  return stillEvent.allDay && movingEvent.allDay;
+              },
+              eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
 
 
-                // eventsToSave[event.key].composition = event.start.format("dddd");
-                // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
-                // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
+                  // eventsToSave[event.key].composition = event.start.format("dddd");
+                  // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
+                  // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
 
-                // sched = {
-                //     key: event.key,
-                //     time_start: event.start.format("HH:mm"),
-                //     time_end: event.end.format("HH:mm"),
-                //     composition: event.start.format("dddd"),
-                //     rl_id: event.rl_id
-                // };
+                  // sched = {
+                  //     key: event.key,
+                  //     time_start: event.start.format("HH:mm"),
+                  //     time_end: event.end.format("HH:mm"),
+                  //     composition: event.start.format("dddd"),
+                  //     rl_id: event.rl_id
+                  // };
 
-                // updatePlottedSched(sched);
+                  // updatePlottedSched(sched);
 
-                // console.log(eventsToSave);
-            },
-            eventRightclick: function (event, jsEvent, view) {
-                ShowMenu('contextMenu', jsEvent);
-                contextMenuEventSelected = event;
+                  // console.log(eventsToSave);
+              },
+              eventRightclick: function (event, jsEvent, view) {
+                  ShowMenu('contextMenu', jsEvent);
+                  contextMenuEventSelected = event;
 
-                return false;
-            }
+                  return false;
+              }
+          });
+
         });
-        <?php }
-        } ?>
+    }
+
+    function load_lab_room() {
+
+        roomId('laboratory');
+
+        $.each(lab_room_id, function (index, room) {
+
+            var room_code = room.room_code;
+
+            $('#'+room_code).fullCalendar({
+                eventSources: [
+                    {
+                        url: '<?php echo base_url('course/get_plotted_room')?>',
+                        data: {room_code: room_code, sy: sy, semester: semester}
+                    }
+                ],
+                defaultView: 'agendaWeek',
+                header: {left: '', right: ''},
+                minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
+                maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
+                columnFormat: {week: 'ddd'},
+                slotDuration: "0:<?php echo $time->interval; ?>",
+                snapDuration: "0:<?php echo $time->interval; ?>",
+                allDaySlot: false,
+                editable: true,
+                droppable: true,
+                firstDay: 1,
+                eventOverlap: function (stillEvent, movingEvent) {
+                    return stillEvent.allDay && movingEvent.allDay;
+                },
+                eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+
+
+                    // eventsToSave[event.key].composition = event.start.format("dddd");
+                    // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
+                    // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
+
+                    // sched = {
+                    //     key: event.key,
+                    //     time_start: event.start.format("HH:mm"),
+                    //     time_end: event.end.format("HH:mm"),
+                    //     composition: event.start.format("dddd"),
+                    //     rl_id: event.rl_id
+                    // };
+
+                    // updatePlottedSched(sched);
+
+                    // console.log(eventsToSave);
+                },
+                eventRightclick: function (event, jsEvent, view) {
+                    ShowMenu('contextMenu', jsEvent);
+                    contextMenuEventSelected = event;
+
+                    return false;
+                }
+            });
+
+        });
+    }
+
+    function roomId(type) {
+            $.ajax({
+                url:'<?php echo base_url('course/get_room'); ?>',
+                data: {type: type},
+                dataType: 'json',
+                async:false,
+                success:function (data) {
+                    (type == 'lecture' ? lecture_room_id = data : lab_room_id = data);
+                }
+            });
+
+
+
     }
 </script>
 

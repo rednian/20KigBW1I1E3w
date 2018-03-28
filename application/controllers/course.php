@@ -53,7 +53,24 @@ class Course extends MY_Controller {
     $this->load->view('includes/footer');
     $this->load->view('includes/js');
     $this->load->view('course/js');
-  } 
+  }
+
+  public function loadRooms()
+  {
+      $type = $this->input->get('type');
+      $rooms = $this->getRooms($type);
+      $data = [];
+
+      if (!empty($rooms)){
+          foreach ($rooms as $room){
+            $data[] = [
+                'code'=>strtoupper($room->room_code)
+            ];
+          }
+      }
+      echo json_encode($data);
+
+  }
 
   public function check_plotted()
   {
@@ -423,7 +440,7 @@ class Course extends MY_Controller {
     if (!empty($list)) {
       return $list;
     }
-  } 
+  }
 
   // public function loadRenderingEvents(){
 

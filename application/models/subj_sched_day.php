@@ -24,8 +24,8 @@ class Subj_sched_day extends MY_Model {
     	    "Block_section" => "Sched_subj"
     	);
     	$this->db->where('room_list.room_code', $room_code);
-//    	$this->db->where('block_section.sy',$sy);
-//    	$this->db->where('block_section.semister',$semester);
+    	$this->db->where('block_section.sy',$sy);
+    	$this->db->where('block_section.semister',$semester);
 
     	return $this->get();
     	

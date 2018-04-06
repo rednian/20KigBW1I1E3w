@@ -299,7 +299,6 @@
             });
     }
 
-    
      function initialize_calendar() {
         $('#subject-schedule-calendar').fullCalendar({
             cache: false,
@@ -345,7 +344,7 @@
 
         $.ajax({
             url: '<?php echo base_url('course/get_plotted_room')?>',
-            data: {room_code: room_code},
+            data: {room_code: room_code, sy: sy, semseter :semseter},
             dataType: 'json',
             success: function (data) {
             

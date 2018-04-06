@@ -1,3 +1,4 @@
+
 <?php $this->load->view('course/dialog/modal-schedule-list'); ?>
 <?php $this->load->view('course/dialog/modal-add-schedule'); ?>
 <?php $this->load->view('course/dialog/modal-room-schedule-list'); ?>
@@ -21,13 +22,8 @@
                                 <?php endif; ?>
                             </select>
                         </div>
-                        <?php
-                        $month = date('m');
-                        $first_semester = [6, 7, 8, 9,10];
-                        $second_semester = [11, 12, 1, 2, 3, 4];
-                        ?>
-                        <label class="radio-inline"><input id="first-semester" type="radio" name="semester" <?php echo   $active = in_array($month, $first_semester) ? 'checked':''; ?> value="first semester"> First Semester</label>
-                        <label class="radio-inline"><input id="second-semester" type="radio" name="semester" <?php echo   $active = in_array($month, $second_semester) ? 'checked':''; ?> value="second semester"> Second Semester</label>
+                        <label class="radio-inline"><input id="first-semester" type="radio" name="semester" <?php echo   $active = semester('first') ? 'checked':''; ?> value="first semester"> First Semester</label>
+                        <label class="radio-inline"><input id="second-semester" type="radio" name="semester" <?php echo   $active = semester('second') ? 'checked':''; ?> value="second semester"> Second Semester</label>
                         <button type="submit" class="btn btn-success btn-sm" >display schedule</button>
                     </form>
                 </div>
@@ -56,8 +52,8 @@
                 </div>
             </div>
             <div class="row m-t-5">
-                <div class="col-md-12 p-l-0 p-r-5">
-                    <?php $this->load->view('course/include/lecture_room'); ?>
+                <div class="col-md-12 p-l-0 p-r-5" id="lec-room-container">
+<!--                    --><?php //$this->load->view('course/include/lecture_room'); ?>
                 </div>
             </div>
         </div>
@@ -72,7 +68,6 @@
             </div>
             <div class="row m-t-5">
                 <div class="col-md-12 p-l-5 p-r-0" id="lab-room-container">
-
 
                 </div>
             </div>
@@ -104,8 +99,9 @@
     var sy = $('#sy').val();
     var semester = $('#first-semester').is(':checked') ? 'first semester' : 'second semester';
 
-
     $(document).ready(function () {
+
+        console.log(semester);
         displaySchedule();
         loadRooms();
 
@@ -116,42 +112,19 @@
 
     });
 
-    function loadLabRoom() {
-
-        $.ajax({
-            url:'<?php echo base_url('course/loadRooms'); ?>',
-            data: {type: 'laboratory'},
-            dataType:'json',
-            success:function (data) {
-
-                $.each(data, function (index, room) {
-                    var html = ' <div class="panel panel-info">';
-                    html += '<div class="panel-heading clearfix">';
-                    html += '<span class="panel-title">'+room.code+'</span>';
-                    html += '<small class="pull-right">Available Time Percentage: 27%</small>';
-                    html += '</div>';
-                    html += '<div class="panel-body p-t-10 p-l-10 p-r-10 p-b-10">';
-                    html += '<div class="roomCalendar" id="'+room.code+'"></div>';
-                    html += '</div>';
-                    html += '<div class="panel-footer clearfix">';
-                    html += '<small class="pull-right">Total Unit Plotted: 27</small>';
-                    html += '</div>';
-                    html += '</div>';
-                    $('div#lab-room-container').append(html);
-                });
-
-
-
-            }
-        });
-
-
-    }
-
-
     function displaySchedule() {
         $('form#frm-schedule').submit(function (e) {
             e.preventDefault();
+
+
+           if ($('#first-semester').is(':checked')) {
+            semester = $('#first-semester').val();
+           }
+
+           if ($('#second-semester').is(':checked')) {
+            semester = $('#second-semester').val();
+           }
+
 
             $.ajax({
                 url:'<?php echo base_url('course/get_plotted_room'); ?>',
@@ -165,29 +138,37 @@
     }
     
     function loadRooms() {
-        loadLabRoom();
-        load_lecture_room();
-        load_lab_room();
+        roomSchedule('div#lec-room-container', 'lecture');
+        roomSchedule('div#lab-room-container', 'laboratory');
+        laboratoryRoom();
+        lectureRoom();
     }
 
-    function load_lecture_room() {
-        roomId('lecture');
+    function lectureRoom() {
+        roomByType('lecture');
 
         $.each(lecture_room_id, function (index, room) {
 
            var room_code = room.room_code;
 
+            $.ajax({
+                url: '<?php echo base_url('course/get_plotted_room')?>',
+                data: {room_code: room_code, sy: sy, semester: semester},
+                dataType:'json',
+                success:function (data) {
+                    $('#'+room_code).fullCalendar('removeEvents');
+                    $('#'+room_code).fullCalendar('addEventSource', data);
+                    $('#'+room_code).fullCalendar('refetchEvents');
+                }
+            });
+
           $('#'+room_code).fullCalendar({
-              events:{
-                      url: '<?php echo base_url('course/get_plotted_room')?>',
-                      data: {room_code: room_code, sy: sy, semester: semester}
-                  },
               defaultView: 'agendaWeek',
               header: {left: '', right: ''},
               minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
               maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
               columnFormat: {week: 'ddd'},
-              slotDuration: "0:<?php echo $time->ianterval; ?>",
+              slotDuration: "0:<?php echo $time->interval; ?>",
               snapDuration: "0:<?php echo $time->interval; ?>",
               allDaySlot: false,
               editable: true,
@@ -226,21 +207,27 @@
         });
     }
 
-    function load_lab_room() {
+    function laboratoryRoom() {
 
-        roomId('laboratory');
+        roomByType('laboratory');
 
         $.each(lab_room_id, function (index, room) {
 
             var room_code = room.room_code;
 
+            $.ajax({
+                url: '<?php echo base_url('course/get_plotted_room')?>',
+                data: {room_code: room_code, sy: sy, semester: semester},
+                dataType:'json',
+                success:function (data) {
+                    $('#'+room_code).fullCalendar('removeEvents');
+                    $('#'+room_code).fullCalendar('addEventSource', data);
+                    $('#'+room_code).fullCalendar('refetchEvents');
+                }
+            });
+
+
             $('#'+room_code).fullCalendar({
-                eventSources: [
-                    {
-                        url: '<?php echo base_url('course/get_plotted_room')?>',
-                        data: {room_code: room_code, sy: sy, semester: semester}
-                    }
-                ],
                 defaultView: 'agendaWeek',
                 header: {left: '', right: ''},
                 minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
@@ -285,7 +272,22 @@
         });
     }
 
-    function roomId(type) {
+    function roomSchedule(selector, type) {
+        $(selector).html('');
+        $.ajax({
+            url:'<?php echo base_url('course/getRoom'); ?>',
+            data: {type: type},
+            dataType:'json',
+            success:function (data) {
+
+                $.each(data, function (index, room) {
+                    $(selector).append(room.code);
+                });
+            }
+        });
+    }
+
+    function roomByType(type) {
             $.ajax({
                 url:'<?php echo base_url('course/get_room'); ?>',
                 data: {type: type},
@@ -295,10 +297,8 @@
                     (type == 'lecture' ? lecture_room_id = data : lab_room_id = data);
                 }
             });
-
-
-
     }
+
 </script>
 
 <style type="text/css">

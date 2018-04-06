@@ -2,6 +2,17 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+function semester($semester = null)
+{
+    $semesters = [
+        'first'=>[6, 7, 8, 9,10],
+        'second'=>[11, 12, 1, 2, 3, 4]
+    ];
+ return   in_array(date('m'), $semesters[$semester]);
+}
+
+
 function plotted_time(){
   $times = array(
     "morning"   => array("start" => "07:00", "end" => "12:00"),

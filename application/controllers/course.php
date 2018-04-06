@@ -55,6 +55,32 @@ class Course extends MY_Controller {
     $this->load->view('course/js');
   }
 
+  public function getRoom()
+  {
+      $data = [];
+      $type = $this->input->get('type');
+      $rooms = $this->getRooms($type);
+      if (!empty($rooms)){
+          foreach ($rooms as $room){
+
+              $html = ' <div class="panel panel-info">';
+              $html .= ' <div class="panel-heading clearfix">';
+              $html .= '<span class="panel-title">'.strtoupper($room->room_code).'</span>';
+              $html .= '<small class="pull-right">Available Time Percentage: 27%</small>';
+              $html .= '</div>';
+              $html .= '<div class="panel-body p-t-10 p-l-10 p-r-10 p-b-10">';
+              $html .= '<div class="roomCalendar" id="'.$room->room_code.'"></div>';
+              $html .= '</div>';
+              $html .= '<div class="panel-footer clearfix">';
+              $html .= '<small class="pull-right">Total Unit Plotted: 27</small>';
+              $html .= '</div>';
+              $html .= '</div>';
+              $data[] = ['code'=>$html];
+          }
+      }
+      echo json_encode($data);
+  }
+
   public function loadRooms()
   {
       $type = $this->input->get('type');

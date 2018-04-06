@@ -19,13 +19,15 @@ class Course extends MY_Controller {
     $this->load->model('Subj_sched_day');
   }
 
-  public function index() {
+  public function index() 
+  {
 
     $time = new Sched_time();
     $plot = new Plotted_time();
     $program = new Program_list();
     $subject = new Subject();
     $sched_day = new Sched_day();
+    $block_section = new Block_section();
 
     $this->undo_schedule();
 
@@ -34,12 +36,14 @@ class Course extends MY_Controller {
     $plotted = $plot->search(["st_id" => $time->st_id]);
 
     $data['time'] = $time;
+    $data['block_section'] = $block_section->get();
     $data['programList'] = $program->get_by_user();
     $data['lectureRooms'] = $this->getRooms("Lecture");
     $data['labRooms'] = $this->getRooms("Laboratory");
     $data['subjectList'] = $subject->all();
     $data['plotted'] = $plotted;
     $data['sched_day'] = $sched_day->get();
+    $data['section_school_year'] = $block_section->schoolYear();
     $data['title'] = 'Course Schedule';
 
     $this->load->view('includes/header', $data);
@@ -51,7 +55,51 @@ class Course extends MY_Controller {
     $this->load->view('course/js');
   }
 
-  public function check_plotted(){
+  public function getRoom()
+  {
+      $data = [];
+      $type = $this->input->get('type');
+      $rooms = $this->getRooms($type);
+      if (!empty($rooms)){
+          foreach ($rooms as $room){
+
+              $html = ' <div class="panel panel-info">';
+              $html .= ' <div class="panel-heading clearfix">';
+              $html .= '<span class="panel-title">'.strtoupper($room->room_code).'</span>';
+              $html .= '<small class="pull-right">Available Time Percentage: 27%</small>';
+              $html .= '</div>';
+              $html .= '<div class="panel-body p-t-10 p-l-10 p-r-10 p-b-10">';
+              $html .= '<div class="roomCalendar" id="'.$room->room_code.'"></div>';
+              $html .= '</div>';
+              $html .= '<div class="panel-footer clearfix">';
+              $html .= '<small class="pull-right">Total Unit Plotted: 27</small>';
+              $html .= '</div>';
+              $html .= '</div>';
+              $data[] = ['code'=>$html];
+          }
+      }
+      echo json_encode($data);
+  }
+
+  public function loadRooms()
+  {
+      $type = $this->input->get('type');
+      $rooms = $this->getRooms($type);
+      $data = [];
+
+      if (!empty($rooms)){
+          foreach ($rooms as $room){
+            $data[] = [
+                'code'=>strtoupper($room->room_code)
+            ];
+          }
+      }
+      echo json_encode($data);
+
+  }
+
+  public function check_plotted()
+  {
 
         $bs_id = $this->input->get('bs_id');
         
@@ -80,7 +128,8 @@ class Course extends MY_Controller {
         echo $result;     
   }
 
-  public function save_schedule() {
+  public function save_schedule() 
+  {
 
     if ($this->input->method() == 'get' && array_key_exists('event', $_GET)) {
 
@@ -135,11 +184,6 @@ class Course extends MY_Controller {
         }
       }
 
-
-
-
-
-
       foreach ($event['selected_days'] as $day_id) {
 
         $data = array('time_start' => $start, 'time_end' => $time_end, 'room' => $room_id, 'day' => $day_id);
@@ -156,6 +200,7 @@ class Course extends MY_Controller {
           $ssd->ss_id = $ss_id;
           $ssd->type = $event['type'];
           $ssd->rl_id = $room_id;
+          $ssd->user_id = $user['id'];
           $ssd->save();
 
           // if vacant update the status to 1, meaning successfully added
@@ -190,7 +235,8 @@ class Course extends MY_Controller {
     }
   }
 
-  public function undo_schedule() {
+  public function undo_schedule() 
+  {
     $schedule = $this->session->userdata('schedule');
     $bs_id = $schedule['bs_id'];
 
@@ -204,7 +250,8 @@ class Course extends MY_Controller {
     }
   }
 
-  public function get_room_plotted() {
+  public function get_room_plotted() 
+  {
 
     $code = $this->input->get('room_code');
     $sched_subj = new Sched_subj();
@@ -230,7 +277,8 @@ class Course extends MY_Controller {
     echo json_encode($data);
   }
 
-  public function get_block_subject() {
+  public function get_block_subject() 
+  {
 
     $type = $this->input->get('type');
     $schedule = $this->session->userdata('schedule');
@@ -253,7 +301,8 @@ class Course extends MY_Controller {
     echo json_encode(array('data' => $data));
   }
 
-  public function create_schedule() {
+  public function create_schedule() 
+  {
 
     $this->remove_unsuccessful_schedule();
 
@@ -346,7 +395,8 @@ class Course extends MY_Controller {
     }
   }
 
-  public function get_revision() {
+  public function get_revision() 
+  {
 
     $pl_id = trim($this->input->get('pl_id'));
 
@@ -366,7 +416,8 @@ class Course extends MY_Controller {
     echo json_encode($data);
   }
 
-  public function get_room() {
+  public function get_room() 
+  {
 
     $room = new Room_list();
 
@@ -387,7 +438,8 @@ class Course extends MY_Controller {
     echo json_encode($data);
   }
 
-  public function get_subject() {
+  public function get_subject() 
+  {
 
     $subject = new Subject();
     $unit = trim($this->input->get('unit'));
@@ -407,7 +459,8 @@ class Course extends MY_Controller {
     echo json_encode(array('data' => $data));
   }
 
-  public function getRooms($type) {
+  public function getRooms($type) 
+  {
     $room = new Room_list;
     $list = $room->show(array("type" => $type));
     if (!empty($list)) {
@@ -441,7 +494,8 @@ class Course extends MY_Controller {
   //     echo json_encode($rendered);
   // }
 
-  public function loadPlottedEvents() {
+  public function loadPlottedEvents() 
+  {
     $this->load->model("Plotted_schedule");
     $plotted = new Plotted_schedule();
 
@@ -460,7 +514,8 @@ class Course extends MY_Controller {
     echo json_encode($rendered);
   }
 
-  public function saveSubjectSched() {
+  public function saveSubjectSched() 
+  {
     $block = new Block_section;
     $sched = new Sched_subj;
 
@@ -505,7 +560,8 @@ class Course extends MY_Controller {
     }
   }
 
-  public function getMoveRooms() {
+  public function getMoveRooms() 
+  {
 
     $type = $this->input->get("type");
     $except = $this->input->get("except");
@@ -519,7 +575,8 @@ class Course extends MY_Controller {
     }
   }
 
-  public function getSectionList() {
+  public function getSectionList() 
+  {
     $query = $this->db->query("
                   SELECT block_section.*, program_list.prog_name,prog_code
 				  FROM block_section
@@ -529,7 +586,8 @@ class Course extends MY_Controller {
     echo json_encode(array('data' => $list));
   }
 
-  public function viewSectionSchedule() {
+  public function viewSectionSchedule() 
+  {
     $sched = new Sched_subj;
     $sec = new Block_section;
 
@@ -603,7 +661,8 @@ class Course extends MY_Controller {
     echo json_encode(array($schedule, $secDetails));
   }
 
-  public function loadEditRenderingEvents() {
+  public function loadEditRenderingEvents() 
+  {
 
     $bs_id = $this->input->get("bs_id");
     $sched = new Sched_subj;
@@ -624,7 +683,8 @@ class Course extends MY_Controller {
     echo json_encode($rendered);
   }
 
-  public function updateSchedule() {
+  public function updateSchedule() 
+  {
     $data = $this->input->post('input');
 
     foreach ($data as $key1 => $value1) {
@@ -652,7 +712,8 @@ class Course extends MY_Controller {
     }
   }
 
-  public function get_schedule() {
+  public function get_schedule() 
+  {
     $bs = new Block_section();
     $bs = $bs->get_last_row();
 
@@ -687,7 +748,8 @@ class Course extends MY_Controller {
     echo json_encode(array('data' => $data));
   }
 
-  public function get_schedule_time() {
+  public function get_schedule_time() 
+  {
 
     $data = array();
 
@@ -719,13 +781,17 @@ class Course extends MY_Controller {
     echo json_encode($data);
   }
 
-  public function get_plotted_room() {
+  public function get_plotted_room() 
+  {
+
+    $user = $this->session->userdata('CURRICULUM_logged');
 
     $ss = new Subj_sched_day();
 
-    $room_code = $this->input->get('room_code');
+    $request = $this->input->get();
 
-    $results = $ss->get_schedule($room_code);
+
+    $results = $ss->get_schedule($request['room_code'],$request['sy'], $request['semester']);
     $data = array();
 
     $days = array("Sunday" => 0, "Monday" => 1, "Tuesday" => 2, "Wednesday" => 3, "Thursday" => 4, "Friday" => 5, "Saturday" => 6);
@@ -738,8 +804,8 @@ class Course extends MY_Controller {
           'start' => date('H:i', strtotime($result->time_start)),
           'end' => date('H:i', strtotime($result->time_end)),
           'dow' => array($days[$result->composition]),
-          'backgroundColor' => $this->random_color(),
-          'textColor' => 'black',
+          'backgroundColor' => $color = $result->user_id == $user['id'] ?  $this->random_color() : '',
+          'textColor' => $color = $result->user_id == $user['id'] ?  '#000' : '#eee',
           'ss_id'=>$result->ss_id,
           'type'=>$result->type,
           'rl_id'=>$result->rl_id,
@@ -750,7 +816,8 @@ class Course extends MY_Controller {
     echo json_encode($data);
   }
 
-  public function setSchedule() {
+  public function setSchedule() 
+  {
 
     $time = array(
       "morning" => array("start" => "07:30", "end" => "12:00"),
@@ -933,7 +1000,8 @@ class Course extends MY_Controller {
     echo json_encode($sched);
   }
 
-  public function resetPlottedSchedule() {
+  public function resetPlottedSchedule() 
+  {
     $plotted = new Plotted_schedule();
     $plotted->load($this->userInfo->user_id);
     $plotted->delete();
@@ -945,7 +1013,8 @@ class Course extends MY_Controller {
     }
   }
 
-  public function generateSectionCode($length = 5) {
+  public function generateSectionCode($length = 5) 
+  {
     $alphabets = range('A', 'Z');
     $numbers = range('0', '9');
 
@@ -959,7 +1028,8 @@ class Course extends MY_Controller {
     echo $password;
   }
 
-  public function updatePlottedSched() {
+  public function updatePlottedSched() 
+  {
 
     $sched = $this->input->get('s');
 
@@ -986,8 +1056,8 @@ class Course extends MY_Controller {
 
 
   /*-------------------------- below this line are the private methods ----------------------------------------------*/
-  protected function get_time_end($data = array()) {
-
+  protected function get_time_end($data = [])
+  {
 
     $minutes = $data['hour'] * 60;
 
@@ -1005,7 +1075,8 @@ class Course extends MY_Controller {
   }
 
   //return array
-  protected function get_subject_hour($data = array()) {
+  protected function get_subject_hour($data = [])
+  {
 
     $s = new Subject();
     $result = array();
@@ -1028,7 +1099,8 @@ class Course extends MY_Controller {
     return $result;
   }
 
-  protected function get_room_id($code = false) {
+  protected function get_room_id($code = false) 
+  {
     $room_id = '';
     $room = new Room_list();
     $room_result = $room->search(array('room_code' => $code));
@@ -1040,7 +1112,8 @@ class Course extends MY_Controller {
     return $room_id;
   }
 
-  protected function remove_unsuccessful_schedule() {
+  protected function remove_unsuccessful_schedule() 
+  {
     if (array_key_exists('schedule', $_SESSION)) {
 
       $schedule = $this->session->userdata('schedule');
@@ -1069,8 +1142,8 @@ class Course extends MY_Controller {
     }
   }
 
-
-  protected function save_block_section_subject($data = array()) {
+  protected function save_block_section_subject($data = [])
+  {
 
     $block_section_subject = new Block_section_subjects();
     $block_section_subject->bs_id = $data['bs_id'];
@@ -1080,16 +1153,13 @@ class Course extends MY_Controller {
     $block_section_subject->save();
   }
 
-  private function getCurriculumSubject($data = array()) {
-
+  private function getCurriculumSubject($data = [])
+  {
     $year = array("1st" => "First Year", "2nd" => "Second Year", "3rd" => "Third Year", "4th" => "Forth Year", "5th" => "Fifth Year");
     $semester = array("1st Semester" => "First Semester", "2nd Semester" => "Second Semester");
     $array = array();
 
-    $query = "SELECT
-              *
-              FROM
-              cur_subject
+    $query = "SELECT * FROM cur_subject
               INNER JOIN `subject` ON cur_subject.subj_id = `subject`.subj_id
               INNER JOIN year_sem ON cur_subject.ys_id = year_sem.ys_id
               INNER JOIN curr_codelist ON year_sem.cur_id = curr_codelist.cur_id
@@ -1101,7 +1171,6 @@ class Course extends MY_Controller {
 
     $query = $this->db->query($query);
     $results = $query->result();
-
 
     if (!empty($results)) {
       foreach ($results as $result) {
@@ -1122,11 +1191,6 @@ class Course extends MY_Controller {
     return $array;
   }
 
-  private function lz($num) {
-
-    return (strlen($num) < 2) ? "0{$num}" : $num;
-  }
-
   private function isNotPlotted($data) {
     $query = $this->db->query("SELECT
                                         *
@@ -1136,22 +1200,14 @@ class Course extends MY_Controller {
                                     WHERE (plotted_schedule.time_start < '" . $data['time_end'] . "' AND plotted_schedule.time_end > '" . $data['time_start'] . "')
                                     AND sched_day.composition = '" . $data['day'] . "'
                                     AND plotted_schedule.sd_id = sched_day.sd_id");
-    $result = $query->result();
-
-    if (!empty($result)) {
-      return true;
-    } else {
-      return false;
-    }
+   
+    return  $result = !empty($query->result()) ? true : false;
   }
 
-  private function isTimeVacant($data = array()) {
-
+  private function isTimeVacant($data = [])
+  {
     $query = $this->db->query("
-                    SELECT
-                    *
-                    FROM
-                    subj_sched_day
+                    SELECT * FROM subj_sched_day
                     INNER JOIN sched_subj ON subj_sched_day.ss_id = sched_subj.ss_id
                     INNER JOIN sched_day ON subj_sched_day.sd_id = sched_day.sd_id
                     WHERE subj_sched_day.rl_id  =  {$data['room']}
@@ -1160,16 +1216,12 @@ class Course extends MY_Controller {
                         subj_sched_day.time_start < '{$data['time_end']}'
                         AND subj_sched_day.time_end > '{$data['time_start']}'
                     )");
-    $result = $query->result();
 
-    if (!empty($result)) {
-      return true;
-    } else {
-      return false;
-    }
+      return $result = !empty($query->result()) ? true : false;
   }
 
-  private function savePlottedSched($sched) {
+  private function savePlottedSched($sched) 
+  {
 
     $this->load->model("Plotted_schedule");
     $plotted = new Plotted_schedule;
@@ -1187,18 +1239,19 @@ class Course extends MY_Controller {
       );
     }
 
-
     $this->db->insert_batch("plotted_schedule", $data);
   }
 
-  private function getSubjCode($subj_id) {
+  private function getSubjCode($subj_id) 
+  {
     $sub = new Subject;
     $list = $sub->search(array("subj_id" => $subj_id));
 
     return $list[$subj_id]->subj_name;
   }
 
-  private function getRoomDetails($search, $param, $return) {
+  private function getRoomDetails($search, $param, $return) 
+  {
     $room = new Room_list;
     $list = $room->show(array($search => $param));
     if (!empty($list)) {
@@ -1208,8 +1261,8 @@ class Course extends MY_Controller {
     }
   }
 
-  private function convertTime($dec) {
-
+  private function convertTime($dec) 
+  {
     $seconds = ($dec * 3600);
     $hours = floor($dec);
     $seconds -= $hours * 3600;
@@ -1219,7 +1272,8 @@ class Course extends MY_Controller {
     return $this->lz($hours) . ":" . $this->lz($minutes) . ":" . $this->lz($seconds);
   }
 
-  private function getDayDetails($field, $par, $return) {
+  private function getDayDetails($field, $par, $return) 
+  {
     $day = new Sched_day;
     $result = $day->search(array($field => $par));
     foreach ($result as $key => $value) {
@@ -1227,11 +1281,18 @@ class Course extends MY_Controller {
     }
   }
 
-  private function random_color() {
+  private function lz($num) 
+  {
+    return (strlen($num) < 2) ? "0{$num}" : $num;
+  }
+
+  private function random_color() 
+  {
     return '#' . $this->random_color_part() . $this->random_color_part() . $this->random_color_part();
   }
 
-  private function random_color_part() {
+  private function random_color_part() 
+  {
     return str_pad(dechex(mt_rand(0, 255)), 2, '0', STR_PAD_LEFT);
   }
 }

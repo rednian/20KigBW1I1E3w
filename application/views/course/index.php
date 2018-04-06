@@ -1,3 +1,4 @@
+
 <?php $this->load->view('course/dialog/modal-schedule-list'); ?>
 <?php $this->load->view('course/dialog/modal-add-schedule'); ?>
 <?php $this->load->view('course/dialog/modal-room-schedule-list'); ?>
@@ -5,52 +6,42 @@
 
 <div id="content" class="content">
 
-    <!-- <button id="btnAddMoreSubject" class="btn btn-success"><i class="fa fa-plus fa-2x"></i><br>Add subject</button> -->
-    <!-- <div class="form-group m-l-0">
-      <button onclick="loadScheduleList();$('#modalScheduleList').modal('show')" class="btn btn-info ">Schedule List</button>
-    </div> -->
-    <div id="setScheduleContent" class="row p-t-10 p-b-10 m-b-10">
-        <!--        <div class="col-md-3 border-r">-->
-        <!--            <small>Schedule is set for:</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsProgram">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-2 border-r">-->
-        <!--            <small>Major</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsMajor">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-1 border-r">-->
-        <!--            <small>Year Level</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsYear">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-1 border-r">-->
-        <!--            <small>Semester</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsSemister">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-1 border-r">-->
-        <!--            <small>School year</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsSY">...</span>-->
-        <!--        </div>-->
-        <!--        <div class="col-md-1 border-r">-->
-        <!--            <small>div Code</small>-->
-        <!--            <br>-->
-        <!--            <span class="schedDetailsdiv">...</span>-->
-        <!--        </div>-->
-
-        <div class="col-md-2 col-md-offset-10" id="buttonContainer">
-            <button onclick="loadScheduleList();$('#modalScheduleList').modal('show')" class="btn btn-info btn-sm">
-                Schedule List
-            </button>
-            <button onclick="$('#setSchedModal').modal('show');" class="btn btn-sm btn-success">Set Schedule</button>
-            <!--            <button onclick="saveSubjectSched()" class="btn btn-sm btn-info pull-right m-l-5">Save</button>-->
+    <section class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-inline" id="frm-schedule" method="get" action="#">
+                        <div class="form-group">
+                            <label for="school_year">School Year</label>
+                            <select name="school_year" id="sy" class="form-control input-sm">
+                                <option disabled>Choose School Year</option>
+                                <?php if (!empty($section_school_year)): ?>
+                                    <?php foreach ($section_school_year as $section): ?>
+                                        <option value="<?php echo $section->sy; ?>"><?php echo $section->sy; ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                        <label class="radio-inline"><input id="first-semester" type="radio" name="semester" <?php echo   $active = semester('first') ? 'checked':''; ?> value="first semester"> First Semester</label>
+                        <label class="radio-inline"><input id="second-semester" type="radio" name="semester" <?php echo   $active = semester('second') ? 'checked':''; ?> value="second semester"> Second Semester</label>
+                        <button type="submit" class="btn btn-success btn-sm" >display schedule</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button onclick="loadScheduleList();$('#modalScheduleList').modal('show')" class="btn btn-info btn-sm pull-right">
+                        Schedule List
+                    </button>
+                    <button onclick="$('#setSchedModal').modal('show');" class="btn btn-sm btn-success pull-right">Set Schedule</button>
+                </div>
+            </div>
 
-    
+        </div>
+    </section>
+
     <div class="row">
         <!-- LEFT -->
         <div class="col-lg-6">
@@ -61,8 +52,8 @@
                 </div>
             </div>
             <div class="row m-t-5">
-                <div class="col-md-12 p-l-0 p-r-5">
-                    <?php $this->load->view('course/include/lecture_room'); ?>
+                <div class="col-md-12 p-l-0 p-r-5" id="lec-room-container">
+<!--                    --><?php //$this->load->view('course/include/lecture_room'); ?>
                 </div>
             </div>
         </div>
@@ -76,9 +67,7 @@
                 </div>
             </div>
             <div class="row m-t-5">
-                <div class="col-md-12 p-l-5 p-r-0">
-
-                    <?php $this->load->view('course/include/lab-room'); ?>
+                <div class="col-md-12 p-l-5 p-r-0" id="lab-room-container">
 
                 </div>
             </div>
@@ -104,11 +93,17 @@
     var _curriculum_year_semester = $('#currsemister').val();
     var _curriculum_revision = $('#currsy').val();
     var _section_code = $('#sectioncode').val();
+    var lecture_room_id = {};
+    var lab_room_id = {};
+
+    var sy = $('#sy').val();
+    var semester = $('#first-semester').is(':checked') ? 'first semester' : 'second semester';
 
     $(document).ready(function () {
- 
-        load_lecture_room();
-        load_lab_room();
+
+        console.log(semester);
+        displaySchedule();
+        loadRooms();
 
         //after closing the room modal, table should be cleared.
         $('#modalSubjectScheduling').on('hidden.bs.modal', function (e) {
@@ -117,137 +112,200 @@
 
     });
 
-    function load_lab_room() {
-        <?php
-        $room = '';
-        $start = '';
-        $end = '';
-        if (!empty($labRooms)){
+    function displaySchedule() {
+        $('form#frm-schedule').submit(function (e) {
+            e.preventDefault();
 
-        foreach ($labRooms as $key => $value) {
-        $room = $value->room_code;
-        $start = date('H:i', strtotime($time->time_start));
-        $end = date('H:i', strtotime($time->time_end));
-        ?>
 
-        $("#<?php echo $value->room_code ?>").fullCalendar({
-            eventSources: [{
-                url: '<?php echo base_url('course/get_plotted_room')?>',
-                data: {room_code: '<?php echo $value->room_code ?>'}
-            }],
-            defaultView: 'agendaWeek',
-            header: {
-                left: '',
-                right: ''
-            },
-            minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
-            maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
-            columnFormat: {
-                week: 'ddd'
-            },
-            slotDuration: "0:<?php echo $time->interval; ?>",
-            snapDuration: "0:<?php echo $time->interval; ?>",
-            allDaySlot: false,
-            editable: true,
-            droppable: true,
-            firstDay: 1,
-            eventOverlap: function (stillEvent, movingEvent) {
-                return stillEvent.allDay && movingEvent.allDay;
-            },
-            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+           if ($('#first-semester').is(':checked')) {
+            semester = $('#first-semester').val();
+           }
 
-                // console.log(event);
+           if ($('#second-semester').is(':checked')) {
+            semester = $('#second-semester').val();
+           }
 
-                // eventsToSave[event.key].composition = event.start.format("dddd");
-                // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
-                // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
 
-                // sched = {
-                //     key: event.key,
-                //     time_start: event.start.format("HH:mm"),
-                //     time_end: event.end.format("HH:mm"),
-                //     composition: event.start.format("dddd"),
-                //     rl_id: event.rl_id
-                // };
-                updatePlottedSched(sched);
-
-                // console.log('update schedule '+shed);
-            },
-            eventRightclick: function (event, jsEvent, view) {
-                ShowMenu('contextMenu', jsEvent);
-                contextMenuEventSelected = event;
-                console.log(event);
-                return false;
-            }
-        });
-        <?php
-        }
-        } ?>
-    }
-
-    function load_lecture_room() {
-        <?php
-        if (!empty($lectureRooms)){
-        foreach ($lectureRooms as $key => $value) { ?>
-        $("#<?php echo $value->room_code ?>").fullCalendar({
-            eventSources: [
-                {
-                    url: '<?php echo base_url('course/get_plotted_room')?>',
-                    data: {room_code: '<?php echo $value->room_code ?>'}
+            $.ajax({
+                url:'<?php echo base_url('course/get_plotted_room'); ?>',
+                data: {room_code: room_code, sy: sy, semester: semester},
+                success:function (data) {
+                    loadRooms();
                 }
-            ],
-            defaultView: 'agendaWeek',
-            header: {
-                left: '',
-                right: ''
-            },
-            minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
-            maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
-            columnFormat: {
-                week: 'ddd'
-            },
-            slotDuration: "0:<?php echo $time->interval; ?>",
-            snapDuration: "0:<?php echo $time->interval; ?>",
-            allDaySlot: false,
-            editable: true,
-            droppable: true,
-            firstDay: 1,
-            eventOverlap: function (stillEvent, movingEvent) {
-                
-                return stillEvent.allDay && movingEvent.allDay;
-            },
-            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+            });
 
-             
-                // eventsToSave[event.key].composition = event.start.format("dddd");
-                // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
-                // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
+        });
+    }
+    
+    function loadRooms() {
+        roomSchedule('div#lec-room-container', 'lecture');
+        roomSchedule('div#lab-room-container', 'laboratory');
+        laboratoryRoom();
+        lectureRoom();
+    }
 
-                // sched = {
-                //     key: event.key,
-                //     time_start: event.start.format("HH:mm"),
-                //     time_end: event.end.format("HH:mm"),
-                //     composition: event.start.format("dddd"),
-                //     rl_id: event.rl_id
-                // };
-               
-                // updatePlottedSched(sched);
+    function lectureRoom() {
+        roomByType('lecture');
 
-                // console.log(eventsToSave);
-            },
-            eventRightclick: function (event, jsEvent, view) {
-                ShowMenu('contextMenu', jsEvent);
-                contextMenuEventSelected = event;
+        $.each(lecture_room_id, function (index, room) {
 
-                return false;
+           var room_code = room.room_code;
+
+            $.ajax({
+                url: '<?php echo base_url('course/get_plotted_room')?>',
+                data: {room_code: room_code, sy: sy, semester: semester},
+                dataType:'json',
+                success:function (data) {
+                    $('#'+room_code).fullCalendar('removeEvents');
+                    $('#'+room_code).fullCalendar('addEventSource', data);
+                    $('#'+room_code).fullCalendar('refetchEvents');
+                }
+            });
+
+          $('#'+room_code).fullCalendar({
+              defaultView: 'agendaWeek',
+              header: {left: '', right: ''},
+              minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
+              maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
+              columnFormat: {week: 'ddd'},
+              slotDuration: "0:<?php echo $time->interval; ?>",
+              snapDuration: "0:<?php echo $time->interval; ?>",
+              allDaySlot: false,
+              editable: true,
+              droppable: true,
+              firstDay: 1,
+              eventOverlap: function (stillEvent, movingEvent) {
+                  return stillEvent.allDay && movingEvent.allDay;
+              },
+              eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+
+
+                  // eventsToSave[event.key].composition = event.start.format("dddd");
+                  // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
+                  // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
+
+                  // sched = {
+                  //     key: event.key,
+                  //     time_start: event.start.format("HH:mm"),
+                  //     time_end: event.end.format("HH:mm"),
+                  //     composition: event.start.format("dddd"),
+                  //     rl_id: event.rl_id
+                  // };
+
+                  // updatePlottedSched(sched);
+
+                  // console.log(eventsToSave);
+              },
+              eventRightclick: function (event, jsEvent, view) {
+                  ShowMenu('contextMenu', jsEvent);
+                  contextMenuEventSelected = event;
+
+                  return false;
+              }
+          });
+
+        });
+    }
+
+    function laboratoryRoom() {
+
+        roomByType('laboratory');
+
+        $.each(lab_room_id, function (index, room) {
+
+            var room_code = room.room_code;
+
+            $.ajax({
+                url: '<?php echo base_url('course/get_plotted_room')?>',
+                data: {room_code: room_code, sy: sy, semester: semester},
+                dataType:'json',
+                success:function (data) {
+                    $('#'+room_code).fullCalendar('removeEvents');
+                    $('#'+room_code).fullCalendar('addEventSource', data);
+                    $('#'+room_code).fullCalendar('refetchEvents');
+                }
+            });
+
+
+            $('#'+room_code).fullCalendar({
+                defaultView: 'agendaWeek',
+                header: {left: '', right: ''},
+                minTime: "<?php echo date('H:i', strtotime($time->time_start)); ?>",
+                maxTime: "<?php echo date('H:i', strtotime($time->time_end)); ?>",
+                columnFormat: {week: 'ddd'},
+                slotDuration: "0:<?php echo $time->interval; ?>",
+                snapDuration: "0:<?php echo $time->interval; ?>",
+                allDaySlot: false,
+                editable: true,
+                droppable: true,
+                firstDay: 1,
+                eventOverlap: function (stillEvent, movingEvent) {
+                    return stillEvent.allDay && movingEvent.allDay;
+                },
+                eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+
+
+                    // eventsToSave[event.key].composition = event.start.format("dddd");
+                    // eventsToSave[event.key].time_start = event.start.format("HH:mm:ss");
+                    // eventsToSave[event.key].time_end = event.end.format("HH:mm:ss");
+
+                    // sched = {
+                    //     key: event.key,
+                    //     time_start: event.start.format("HH:mm"),
+                    //     time_end: event.end.format("HH:mm"),
+                    //     composition: event.start.format("dddd"),
+                    //     rl_id: event.rl_id
+                    // };
+
+                    // updatePlottedSched(sched);
+
+                    // console.log(eventsToSave);
+                },
+                eventRightclick: function (event, jsEvent, view) {
+                    ShowMenu('contextMenu', jsEvent);
+                    contextMenuEventSelected = event;
+
+                    return false;
+                }
+            });
+
+        });
+    }
+
+    function roomSchedule(selector, type) {
+        $(selector).html('');
+        $.ajax({
+            url:'<?php echo base_url('course/getRoom'); ?>',
+            data: {type: type},
+            dataType:'json',
+            success:function (data) {
+
+                $.each(data, function (index, room) {
+                    $(selector).append(room.code);
+                });
             }
         });
-        <?php }
-        } ?>
     }
+
+    function roomByType(type) {
+            $.ajax({
+                url:'<?php echo base_url('course/get_room'); ?>',
+                data: {type: type},
+                dataType: 'json',
+                async:false,
+                success:function (data) {
+                    (type == 'lecture' ? lecture_room_id = data : lab_room_id = data);
+                }
+            });
+    }
+
 </script>
 
 <style type="text/css">
+
+    div.content {
+        padding-top: 0;
+    }
 
     div.p-t-5.p-b-5 {
         background: #154360;
@@ -256,7 +314,7 @@
     }
 
     div#setScheduleContent {
-        background: #154360;
+        /*background: #154360;*/
         border-radius: 5px;
         color: #FFF !important;
     }
@@ -317,5 +375,9 @@
         display: none;
         z-index: 1000;
         width: 150px;
+    }
+
+    .btn {
+        margin-left: .3%;
     }
 </style>

@@ -9,7 +9,7 @@
   });
 
   var tblListCurr;
-  
+
   $(document).ready(function () {
     tblListCurr = $("#table-list-curr").dataTable({
       "bLengthChange": false,
@@ -57,10 +57,15 @@
       type: "GET",
       dataType: "json",
       success: function (data) {
-        $.each(data, function (key, value) {
+
+          // console.log(data);
+
+        $.each(data, function (index, value) {
+            console.log(value);
           display = "<li onclick=\"previewCurriculum(" + value['cur_id'] + ")\">\
 		                            <span class=\"fa fa-chevron-right\"></span> <a href=\"javascript:;\">" + value['cur_id'] + " Revised Curriculum Effectivity <span class=\"lbl-sem\">" + value['eff_sem'] + "</span> SY: <span class=\"lbl-sy\">" + value['eff_sy'] + "</span></a>\
 		                        </li>";
+
           $(".curr-list-container .curr-list#listProg_" + pl_id).append(display);
         });
       },

@@ -323,7 +323,6 @@
 
     function load_room() {
 
-
         $(document).on('change', '#select-room', function () {
 
              room_code = $(this).val();
@@ -341,14 +340,12 @@
 
     function room_calendar(room_code) {
 
-
         $.ajax({
             url: '<?php echo base_url('course/get_plotted_room')?>',
             data: {room_code: room_code, sy: sy, semseter :semseter},
             dataType: 'json',
             success: function (data) {
             
-
                 $("#subject-schedule-calendar").fullCalendar('removeEvents');
                 
                 $("#subject-schedule-calendar").fullCalendar('addEventSource', data);

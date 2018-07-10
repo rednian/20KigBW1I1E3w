@@ -80,7 +80,8 @@
 			{
 			    // Is the token field set and valid?
 			    $posted_token = $token;
-			    if (empty($posted_token) || $posted_token != get_session("session_token"))
+		
+			    if (empty($posted_token) || ($posted_token != get_session("session_token")))
 			    {
 			      	return false;
 			    }

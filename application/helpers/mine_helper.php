@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
@@ -151,6 +151,7 @@ function escape_str($str = "")
 // SESSION
 function set_session($name, $data)
 {
+
   $CI =& get_instance();
   $CI->session->set_userdata($name, $data);
 }

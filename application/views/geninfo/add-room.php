@@ -106,7 +106,7 @@
               message: 'The type is required and cannot be empty'
             },
             stringLength: {
-              max: 3,
+              min: 3,
               message: 'The type must be more than 1 characters long'
             }
           }
@@ -114,7 +114,7 @@
         location: {
           validators: {
             stringLength: {
-              max: 6,
+              min: 6,
               message: 'The location must be more than 1 characters long'
             },
             regexp: {
@@ -126,7 +126,7 @@
         desc: {
           validators: {
             stringLength: {
-              max: 3,
+              min: 3,
               message: 'The description must be more than 1 character long'
             },
             regexp: {

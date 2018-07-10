@@ -1,10 +1,15 @@
 <script type="text/javascript">
   var json;
   $(document).ready(function () {
+
     $("li.page_menu").removeClass("active");
+
     $("#menu_curriculum").addClass("active");
+
   });
+
   var tblListCurr;
+  
   $(document).ready(function () {
     tblListCurr = $("#table-list-curr").dataTable({
       "bLengthChange": false,

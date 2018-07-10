@@ -45,7 +45,7 @@ class Gen_info extends MY_Controller
         $r = new Room_list();
         $valid = TRUE;
         $code = array();
-        foreach ($r->lists() as $room) {
+        foreach ($r->get() as $room) {
           array_push($code , $room->room_code);
         }
         if (isset($_GET['room_code']) && in_array(strtolower($_GET['room_code']) , $code)) {
